@@ -1,0 +1,202 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0f0a1c;
+}
+
+/* --- ЛЕВОЕ МЕНЮ --- */
+.sidebar {
+  width: 260px;
+  background-color: #1a132b;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+
+  .logo {
+    padding: 25px 20px;
+    font-size: 1.4rem;
+    color: white;
+    .icon { margin-right: 10px; }
+    strong { color: #8e44ad; }
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    
+    a {
+      color: #9ba1b9;
+      text-decoration: none;
+      padding: 12px 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: 0.2s;
+      border-left: 4px solid transparent;
+
+      &:hover, &.active {
+        color: white;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      &.active {
+        border-left-color: #8e44ad;
+        background: linear-gradient(90deg, rgba(142,68,173,0.2) 0%, transparent 100%);
+      }
+
+      &.disabled { opacity: 0.4; cursor: not-allowed; }
+    }
+  }
+}
+
+/* --- КОНТЕНТНАЯ ЧАСТЬ --- */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.top-header {
+  height: 70px;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f0a1c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  .search-bar {
+    background: #1f1833;
+    border-radius: 20px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    input {
+      background: transparent;
+      border: none;
+      color: white;
+      margin-left: 10px;
+      outline: none;
+      width: 100%;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .btn-promo {
+      background: linear-gradient(90deg, #b024d5, #5e1be6);
+      border: none;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .balance-box {
+      background: #1f1833;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+      border: 1px solid #8e44ad;
+
+      .amount { font-weight: bold; margin-right: 12px; }
+
+      .btn-deposit {
+        background: #00d2d3;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        font-weight: bold;
+        cursor: pointer;
+        &:hover { transform: scale(1.1); }
+      }
+    }
+  }
+}
+
+.content-area {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto; /* Скроллится только здесь */
+}
+
+/* --- МОДАЛКА КАССЫ --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  .modal-content {
+    background: #1a132b;
+    padding: 30px;
+    border-radius: 20px;
+    width: 380px;
+    border: 1px solid #8e44ad;
+    position: relative;
+    text-align: center;
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .deposit-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 20px 0;
+      button {
+        background: #1f1833;
+        color: white;
+        border: 1px solid #8e44ad;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        &:hover { background: #8e44ad; }
+      }
+    }
+
+    .custom-amount {
+      margin-bottom: 20px;
+      input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #8e44ad;
+        background: #0f0a1c;
+        color: white;
+      }
+    }
+
+    .btn-submit-deposit {
+      width: 100%;
+      background: #00d2d3;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+}

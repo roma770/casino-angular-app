@@ -1,0 +1,44 @@
+<div class="lobby-container">
+  
+  <div class="hero-banner">
+    <div class="banner-content">
+      <h2>Челендж Купця Удачі</h2>
+      <p>Виконай челендж та отримай 100 FS</p>
+      <button class="btn-banner">ПРО ЧЕЛЕНДЖ</button>
+    </div>
+  </div>
+
+  <div class="filters-scroll">
+    <button class="filter-btn active">ТОП</button>
+    <button class="filter-btn">Провайдери</button>
+    <button class="filter-btn">CosmoHot</button>
+    <button class="filter-btn">Рекомендовані</button>
+    <button class="filter-btn">Новинки</button>
+    <button class="filter-btn">Bonus buy</button>
+    <button class="filter-btn">Найпопулярніші</button>
+  </div>
+
+  <div class="section-title">
+    <h3>🔥 ТОП</h3>
+    <a href="#" class="view-all">Дивитись все</a>
+  </div>
+  
+  <div class="games-grid">
+    @for (game of games; track game.name) {
+      <div class="game-card" [class.disabled]="!game.active" [routerLink]="game.active ? game.route : null">
+        <div class="card-image" [style.background]="game.bg">
+          @if (game.type) {
+            <span class="badge" [class]="game.type.toLowerCase()">{{ game.type }}</span>
+          }
+          <h3>{{ game.name }}</h3>
+          
+          @if (game.active) {
+            <div class="play-overlay">▶</div>
+          } @else {
+            <div class="play-overlay lock">🔒</div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
