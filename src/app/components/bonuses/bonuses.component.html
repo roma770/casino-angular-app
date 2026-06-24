@@ -1,0 +1,15 @@
+<div class="bonuses-page">
+  <div class="sec-title">🎁 БОНУСИ ТА АКЦІЇ</div>
+  <div class="bonus-grid">
+    @for (b of bonuses; track b.title) {
+      <div class="bonus-card" [class]="b.cls">
+        <span class="expiry">{{ b.expiry }}</span>
+        <div class="icon">{{ b.icon }}</div>
+        <div class="title">{{ b.title }}</div>
+        <div class="value">{{ b.value }}</div>
+        <p>{{ b.desc }}</p>
+        <button class="btn-bonus" (click)="claim(b)">{{ b.label }}</button>
+      </div>
+    }
+  </div>
+</div>

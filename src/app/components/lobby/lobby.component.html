@@ -1,0 +1,75 @@
+<div class="lobby">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">🎉 Спеціальна пропозиція</div>
+      <h1>Челендж Купця Удачі</h1>
+      <p>Виконай 5 умов — отримай 100 Free Spins та 200% до першого депозиту</p>
+      <a class="btn-hero" routerLink="/bonuses">ПРО ЧЕЛЕНДЖ →</a>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    @for (f of filters; track f) {
+      <button class="filter-btn" [class.active]="activeFilter === f" (click)="setFilter(f)">{{ f }}</button>
+    }
+  </div>
+
+  <!-- TOP GAMES -->
+  <div class="sec-header">
+    <div class="sec-title">🔥 ТОП ІГРИ</div>
+    <a class="view-all" routerLink="/slots">Дивитись всі →</a>
+  </div>
+
+  <div class="games-grid">
+    @for (game of games; track game.name) {
+      @if (game.active) {
+        <a class="game-card" [routerLink]="game.route">
+          <div class="card-bg" [style.background]="game.bg">
+            @if (game.type) {
+              <span class="card-badge" [class]="badgeClass(game.type)">{{ game.type }}</span>
+            }
+            <span class="card-name">{{ game.name }}</span>
+            <div class="card-overlay">▶</div>
+          </div>
+        </a>
+      } @else {
+        <div class="game-card locked">
+          <div class="card-bg" [style.background]="game.bg">
+            @if (game.type) {
+              <span class="card-badge" [class]="badgeClass(game.type)">{{ game.type }}</span>
+            }
+            <span class="card-name">{{ game.name }}</span>
+            <div class="card-overlay">🔒</div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- LIVE -->
+  <div class="sec-header">
+    <div class="sec-title">🃏 LIVE КАЗИНО</div>
+    <a class="view-all" routerLink="/live">Дивитись все →</a>
+  </div>
+
+  <div class="live-row">
+    @for (g of liveGames; track g.name) {
+      <div class="live-card">
+        <div class="live-thumb" [style.background]="g.bg">
+          <span>{{ g.emoji }}</span>
+          <span class="live-badge"><span class="live-dot"></span> LIVE</span>
+          <span class="live-players">👥 {{ g.players }}</span>
+        </div>
+        <div class="live-info">
+          <div class="live-name">{{ g.name }}</div>
+          <div class="live-provider">{{ g.provider }}</div>
+        </div>
+      </div>
+    }
+  </div>
+
+</div>

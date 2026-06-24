@@ -1,0 +1,14 @@
+<div class="providers-page">
+  <div class="sec-header">
+    <div class="sec-title">👑 ПРОВАЙДЕРИ</div>
+  </div>
+  <div class="providers-grid">
+    @for (p of providers; track p.name) {
+      <div class="provider-card">
+        <div class="provider-logo">{{ p.logo }}</div>
+        <div class="provider-name">{{ p.name }}</div>
+        <div class="provider-count">{{ p.count }} ігор</div>
+      </div>
+    }
+  </div>
+</div>

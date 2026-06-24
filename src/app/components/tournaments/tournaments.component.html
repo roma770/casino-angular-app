@@ -1,0 +1,22 @@
+<div class="tournaments-page">
+  <div class="sec-title">🏆 ТУРНІРИ</div>
+  <div class="tournament-list">
+    @for (t of tournaments; track t.name) {
+      <div class="tournament-card">
+        <div class="t-icon">{{ t.icon }}</div>
+        <div class="t-info">
+          <div class="t-name">{{ t.name }}</div>
+          <div class="t-dates">📅 {{ t.dates }}</div>
+          <div class="t-bar">
+            <div class="t-fill" [style.width.%]="t.progress" [class.gold]="t.gold"></div>
+          </div>
+        </div>
+        <div class="t-prize">
+          <div class="t-prize-label">Призовий фонд</div>
+          <div class="t-prize-value">{{ t.prize }}</div>
+          <div class="t-players">👥 {{ t.players }} учасників</div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

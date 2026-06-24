@@ -1,0 +1,60 @@
+.bonuses-page { max-width: 1000px; }
+
+.sec-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.bonus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.bonus-card {
+  border-radius: 20px;
+  padding: 28px 24px;
+  position: relative;
+  border: 1px solid var(--border);
+  transition: .2s;
+  cursor: default;
+
+  &:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+
+  &.welcome  { background: linear-gradient(135deg, #1a0b30, #3b0764); }
+  &.fs       { background: linear-gradient(135deg, #0c2340, #1e3a5f); }
+  &.cashback { background: linear-gradient(135deg, #0c2816, #14532d); }
+
+  p { color: #b8a9d0; font-size: .85rem; line-height: 1.6; margin-bottom: 16px; }
+}
+
+.expiry {
+  position: absolute;
+  top: 14px; right: 14px;
+  font-size: .7rem;
+  color: var(--muted);
+  background: rgba(0,0,0,.3);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.icon  { font-size: 2.8rem; margin-bottom: 14px; }
+.title { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.value { font-size: 1.8rem; font-weight: 900; color: var(--gold); margin-bottom: 14px; font-family: 'Orbitron', sans-serif; }
+
+.btn-bonus {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border: none;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: .85rem;
+  transition: .2s;
+
+  &:hover { box-shadow: 0 4px 16px rgba(192,38,211,.5); transform: scale(1.03); }
+}

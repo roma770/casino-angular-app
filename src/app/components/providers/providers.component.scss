@@ -1,0 +1,45 @@
+.providers-page { max-width: 1200px; }
+
+.sec-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sec-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.providers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+}
+
+.provider-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    border-color: var(--accent);
+    background: var(--bg-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(192,38,211,.2);
+  }
+}
+
+.provider-logo { font-size: 2.2rem; }
+.provider-name { font-size: .8rem; font-weight: 600; color: var(--text); text-align: center; }
+.provider-count { font-size: .72rem; color: var(--accent); }

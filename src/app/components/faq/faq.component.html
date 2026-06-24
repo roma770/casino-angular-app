@@ -1,0 +1,18 @@
+<div class="faq-page">
+  <div class="sec-title">ℹ️ ЧАСТІ ПИТАННЯ</div>
+  <div class="faq-list">
+    @for (item of items(); track $index) {
+      <div class="faq-item" [class.open]="item.open" (click)="toggle($index)">
+        <div class="faq-q">
+          {{ item.q }}
+          <span class="chevron">▾</span>
+        </div>
+        @if (item.open) {
+          <div class="faq-a">
+            <p>{{ item.a }}</p>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

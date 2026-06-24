@@ -1,0 +1,52 @@
+.tournaments-page { max-width: 900px; }
+
+.sec-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.tournament-list { display: flex; flex-direction: column; gap: 14px; }
+
+.tournament-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover { border-color: var(--accent); background: var(--bg-hover); }
+}
+
+.t-icon { font-size: 2.4rem; flex-shrink: 0; }
+
+.t-info { flex: 1; }
+.t-name  { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+.t-dates { font-size: .78rem; color: var(--muted); margin-bottom: 8px; }
+
+.t-bar {
+  height: 4px;
+  background: rgba(255,255,255,.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.t-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--neon));
+  transition: width .4s;
+
+  &.gold { background: linear-gradient(90deg, var(--gold), #f59e0b); }
+}
+
+.t-prize { text-align: right; flex-shrink: 0; }
+.t-prize-label { font-size: .72rem; color: var(--muted); margin-bottom: 4px; }
+.t-prize-value { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); }
+.t-players     { font-size: .72rem; color: var(--muted); margin-top: 4px; }

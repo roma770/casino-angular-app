@@ -1,0 +1,247 @@
+.slot-page {
+  max-width: 540px;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin-bottom: 4px;
+  background: linear-gradient(135deg, #fff, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sub { color: var(--muted); font-size: .85rem; margin-bottom: 28px; }
+
+// ── STATS ──────────────────────────────────────────────────────
+.slot-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.stat-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+
+  &.neon { color: var(--neon); }
+  &.gold { color: var(--gold); }
+}
+
+// ── MACHINE ────────────────────────────────────────────────────
+.slot-machine {
+  background: linear-gradient(135deg, var(--bg-card), #0e0919);
+  border: 2px solid var(--border);
+  border-radius: 24px;
+  padding: 32px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 0 40px rgba(192,38,211,.1), inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+.machine-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.machine-label { font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.machine-name  { font-family: 'Orbitron', sans-serif; font-size: .9rem; color: var(--accent); }
+
+// ── REELS ──────────────────────────────────────────────────────
+.reels {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 24px;
+
+  &.spinning .reel {
+    animation: spinReel .08s ease-in-out infinite alternate;
+  }
+}
+
+.reel {
+  width: 88px;
+  height: 88px;
+  background: linear-gradient(135deg, #0b0714, #1a1330);
+  border: 2px solid rgba(192,38,211,.3);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  box-shadow: inset 0 0 20px rgba(0,0,0,.5), 0 0 12px rgba(192,38,211,.1);
+  transition: border-color .3s, box-shadow .3s;
+
+  &.win {
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(251,191,36,.5), inset 0 0 20px rgba(251,191,36,.1);
+  }
+}
+
+@keyframes spinReel {
+  0%   { transform: scaleY(.95); filter: blur(1px); }
+  100% { transform: scaleY(1.05); filter: blur(2px); }
+}
+
+// ── WIN LINE ───────────────────────────────────────────────────
+.winline {
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  border-radius: 2px;
+  margin-bottom: 20px;
+  opacity: 0;
+  transition: opacity .3s;
+
+  &.show {
+    opacity: 1;
+    animation: pulse-line 1s ease infinite;
+  }
+}
+
+@keyframes pulse-line {
+  0%, 100% { box-shadow: 0 0 6px var(--gold); }
+  50%       { box-shadow: 0 0 18px var(--gold); }
+}
+
+// ── MESSAGE ────────────────────────────────────────────────────
+.msg-box {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  transition: .3s;
+  color: var(--text);
+
+  &.win-msg {
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(251,191,36,.5);
+    animation: pulse-glow 1s infinite;
+  }
+
+  &.lose-msg { color: var(--red); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 10px rgba(251,191,36,.5); }
+  50%       { text-shadow: 0 0 24px rgba(251,191,36,.9); }
+}
+
+// ── BET ROW ────────────────────────────────────────────────────
+.bet-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.bet-label { color: var(--muted); font-size: .82rem; }
+
+.bet-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: #fff;
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: .15s;
+
+  &:hover:not(:disabled) { border-color: var(--accent); background: var(--bg-hover); }
+  &:disabled { opacity: .4; cursor: not-allowed; }
+}
+
+.bet-value {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+  min-width: 60px;
+  text-align: center;
+}
+
+// ── SPIN BUTTON ────────────────────────────────────────────────
+.btn-spin {
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border: none;
+  color: #fff;
+  padding: 16px;
+  border-radius: 16px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: .2s;
+  box-shadow: 0 4px 24px rgba(192,38,211,.4);
+
+  &:hover:not(:disabled) { box-shadow: 0 6px 32px rgba(192,38,211,.7); transform: translateY(-2px); }
+  &:disabled             { opacity: .55; cursor: not-allowed; transform: none; }
+  &.spinning             { animation: btn-pulse .6s ease-in-out infinite; }
+}
+
+@keyframes btn-pulse {
+  0%, 100% { box-shadow: 0 4px 24px rgba(192,38,211,.4); }
+  50%       { box-shadow: 0 4px 40px rgba(192,38,211,.8); }
+}
+
+// ── PAYTABLE ───────────────────────────────────────────────────
+.paytable {
+  margin-top: 28px;
+  text-align: left;
+
+  h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: .8rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+}
+
+.pay-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.pay-symbols { font-size: 1.3rem; letter-spacing: 4px; }
+.pay-mult    { font-weight: 700; font-size: .85rem; color: var(--gold); }

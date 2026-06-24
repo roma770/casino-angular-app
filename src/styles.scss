@@ -1,96 +1,35 @@
-.slot-container {
-  text-align: center;
-  background: #2c3e50;
-  color: white;
-  padding: 30px;
-  border-radius: 15px;
-  max-width: 400px;
-  margin: 50px auto;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+@use 'sass:color';
 
-  .balance-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.2rem;
-    background: rgba(0,0,0,0.3);
-    padding: 10px;
-    border-radius: 8px;
-  }
-
-  .reels {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 30px 0;
-    font-size: 4rem;
-
-    .reel {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-    }
-  }
-
-  .spinning .reel {
-    animation: blur 0.3s infinite alternate;
-  }
-
-  .message {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #ffd700;
-    min-height: 30px;
-  }
-
-  button {
-    background: #e74c3c;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-    margin-top: 15px;
-
-    &:hover:not([disabled]) {
-      background: #c0392b;
-    }
-
-    &[disabled] {
-      background: #7f8c8d;
-      cursor: not-allowed;
-    }
-  }
+:root {
+  --bg-deep:    #07050f;
+  --bg-surface: #110d1e;
+  --bg-card:    #1a1330;
+  --bg-hover:   #221843;
+  --accent:     #c026d3;
+  --accent2:    #7c3aed;
+  --neon:       #00d2d3;
+  --gold:       #fbbf24;
+  --red:        #f43f5e;
+  --green:      #10b981;
+  --text:       #e2d9f3;
+  --muted:      #7c6fa0;
+  --border:     rgba(192, 38, 211, 0.18);
 }
 
-@keyframes blur {
-  0% { filter: blur(0px); transform: translateY(0); }
-  100% { filter: blur(2px); transform: translateY(3px); }
-}
-/* Сброс стандартных отступов браузера */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
 }
 
-body {
-  background-color: #0b0a15;
-  color: white;
-  font-family: 'Segoe UI', sans-serif;
-  overflow: hidden; /* Чтобы скроллился только контент, а не весь сайт */
-}
-/* Красивый скроллбар (как на крутых сайтах) */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #0b0a15;
-}
-::-webkit-scrollbar-thumb {
-  background: #6c5ce7;
-  border-radius: 4px;
-}
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 3px; }
