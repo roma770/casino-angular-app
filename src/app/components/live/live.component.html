@@ -1,0 +1,26 @@
+<div class="live-page">
+  <div class="sec-title">🃏 LIVE КАЗИНО</div>
+  <p class="sec-sub">Грай з живими дилерами в реальному часі</p>
+
+  <div class="live-grid">
+    @for (g of games; track g.id) {
+      <div class="live-card" (click)="openGame(g)">
+        <div class="live-thumb" [style.background]="g.bg">
+          <span class="game-emoji">{{ g.emoji }}</span>
+          <span class="live-badge"><span class="dot"></span> LIVE</span>
+          <span class="players">👥 {{ playerCounts()[g.id] | number }}</span>
+          @if (g.badge) {
+            <span class="game-badge" [class]="badgeClass(g.badge)">{{ g.badge }}</span>
+          }
+        </div>
+        <div class="live-info">
+          <div class="game-name">{{ g.name }}</div>
+          <div class="game-provider">{{ g.provider | titlecase }}</div>
+          <div class="game-rtp">RTP {{ g.rtp }}% • Мін. {{ g.minBet }} ₴</div>
+          <button class="play-btn">Грати →</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+<app-game-modal #gameModal></app-game-modal>

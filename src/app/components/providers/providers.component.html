@@ -1,14 +1,46 @@
 <div class="providers-page">
-  <div class="sec-header">
+
+  @if (!selectedProvider()) {
     <div class="sec-title">👑 ПРОВАЙДЕРИ</div>
-  </div>
-  <div class="providers-grid">
-    @for (p of providers; track p.name) {
-      <div class="provider-card">
-        <div class="provider-logo">{{ p.logo }}</div>
-        <div class="provider-name">{{ p.name }}</div>
-        <div class="provider-count">{{ p.count }} ігор</div>
+    <div class="providers-grid">
+      @for (p of providers; track p.id) {
+        <div class="provider-card" (click)="selectProvider(p)">
+          <div class="provider-logo" [style.color]="p.color">{{ p.logo }}</div>
+          <div class="provider-name">{{ p.name }}</div>
+          <div class="provider-count">{{ gameCount(p.id) }} ігор</div>
+          <div class="provider-arrow">→</div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="provider-detail">
+      <button class="back-btn" (click)="clearProvider()">← Всі провайдери</button>
+      <div class="provider-header">
+        <span class="prov-logo" [style.color]="selectedProvider()!.color">{{ selectedProvider()!.logo }}</span>
+        <div>
+          <h2>{{ selectedProvider()!.name }}</h2>
+          <p>{{ providerGames().length }} ігор доступно</p>
+        </div>
       </div>
-    }
-  </div>
+
+      <div class="games-grid">
+        @for (game of providerGames(); track game.id) {
+          <div class="game-card" (click)="openGame(game)">
+            <div class="card-bg" [style.background]="game.bg">
+              @if (game.badge) {
+                <span class="card-badge" [class]="badgeClass(game.badge)">{{ game.badge }}</span>
+              }
+              <span class="card-name">{{ game.name }}</span>
+              <div class="card-overlay">▶</div>
+            </div>
+          </div>
+        }
+        @empty {
+          <div class="empty">Немає ігор</div>
+        }
+      </div>
+    </div>
+  }
+
 </div>
+<app-game-modal #gameModal></app-game-modal>

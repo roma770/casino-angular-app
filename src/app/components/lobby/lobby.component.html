@@ -13,56 +13,64 @@
 
   <!-- FILTERS -->
   <div class="filters">
-    @for (f of filters; track f) {
-      <button class="filter-btn" [class.active]="activeFilter === f" (click)="setFilter(f)">{{ f }}</button>
+    @for (f of filters; track f.tag) {
+      <button class="filter-btn" [class.active]="activeFilter() === f.tag" (click)="setFilter(f.tag)">
+        {{ f.label }}
+      </button>
     }
   </div>
 
-  <!-- TOP GAMES -->
+  <!-- SLOTS GRID -->
   <div class="sec-header">
-    <div class="sec-title">🔥 ТОП ІГРИ</div>
+    <div class="sec-title">🎰 СЛОТИ</div>
     <a class="view-all" routerLink="/slots">Дивитись всі →</a>
   </div>
 
   <div class="games-grid">
-    @for (game of games; track game.name) {
-      @if (game.active) {
-        <a class="game-card" [routerLink]="game.route">
-          <div class="card-bg" [style.background]="game.bg">
-            @if (game.type) {
-              <span class="card-badge" [class]="badgeClass(game.type)">{{ game.type }}</span>
-            }
-            <span class="card-name">{{ game.name }}</span>
-            <div class="card-overlay">▶</div>
-          </div>
-        </a>
-      } @else {
-        <div class="game-card locked">
-          <div class="card-bg" [style.background]="game.bg">
-            @if (game.type) {
-              <span class="card-badge" [class]="badgeClass(game.type)">{{ game.type }}</span>
-            }
-            <span class="card-name">{{ game.name }}</span>
-            <div class="card-overlay">🔒</div>
-          </div>
+    @for (game of topGames(); track game.id) {
+      <div class="game-card" (click)="openGame(game)">
+        <div class="card-bg" [style.background]="game.bg">
+          @if (game.badge) {
+            <span class="card-badge" [class]="badgeClass(game.badge)">{{ game.badge }}</span>
+          }
+          <span class="card-name">{{ game.name }}</span>
+          <div class="card-overlay">▶</div>
         </div>
-      }
+      </div>
+    }
+    @empty {
+      <div class="empty-state">Немає ігор за цим фільтром</div>
     }
   </div>
 
-  <!-- LIVE -->
+  <!-- QUICK GAMES ROW -->
+  <div class="sec-header">
+    <div class="sec-title">⚡ ШВИДКІ ІГРИ</div>
+    <a class="view-all" routerLink="/quick">Дивитись всі →</a>
+  </div>
+  <div class="quick-row">
+    @for (game of quickGames; track game.id) {
+      <div class="quick-card" (click)="openGame(game)" [style.background]="game.bg">
+        <span class="quick-emoji">{{ game.emoji }}</span>
+        <span class="quick-name">{{ game.name }}</span>
+        @if (game.badge) {
+          <span class="quick-badge">{{ game.badge }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- LIVE ROW -->
   <div class="sec-header">
     <div class="sec-title">🃏 LIVE КАЗИНО</div>
     <a class="view-all" routerLink="/live">Дивитись все →</a>
   </div>
-
   <div class="live-row">
-    @for (g of liveGames; track g.name) {
-      <div class="live-card">
+    @for (g of liveGames; track g.id) {
+      <div class="live-card" (click)="openGame(g)">
         <div class="live-thumb" [style.background]="g.bg">
           <span>{{ g.emoji }}</span>
           <span class="live-badge"><span class="live-dot"></span> LIVE</span>
-          <span class="live-players">👥 {{ g.players }}</span>
         </div>
         <div class="live-info">
           <div class="live-name">{{ g.name }}</div>
@@ -73,3 +81,5 @@
   </div>
 
 </div>
+
+<app-game-modal #gameModal></app-game-modal>

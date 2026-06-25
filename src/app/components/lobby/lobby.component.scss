@@ -278,3 +278,35 @@ p {
 .live-info { padding: 14px 16px; }
 .live-name { font-weight: 700; margin-bottom: 4px; }
 .live-provider { font-size: .75rem; color: var(--muted); }
+
+// QUICK ROW
+.quick-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.quick-card {
+  border-radius: 16px;
+  padding: 20px 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer; transition: .2s; text-align: center; position: relative;
+  border: 1px solid rgba(255,255,255,.1);
+  &:hover { transform: translateY(-5px); box-shadow: 0 8px 28px rgba(0,0,0,.4); border-color: rgba(255,255,255,.25); }
+}
+
+.quick-emoji { font-size: 2.4rem; }
+.quick-name { font-weight: 700; font-size: .85rem; color: #fff; }
+.quick-badge {
+  position: absolute; top: 8px; right: 8px;
+  background: var(--red); color: #fff;
+  font-size: .6rem; font-weight: 800; padding: 2px 7px; border-radius: 6px;
+}
+
+// EMPTY STATE
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center; padding: 40px;
+  color: var(--muted); font-size: .9rem;
+}

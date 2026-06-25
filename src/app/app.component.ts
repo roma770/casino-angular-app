@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, signal, inject, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,30 +21,26 @@ export class AppComponent implements AfterViewInit {
   isCashierOpen = signal(false);
   depositAmount = 500;
 
-  readonly navItems = [
-    { label: 'Головна',    icon: '🏠', route: '/lobby',       badge: null },
-    { label: 'Провайдери', icon: '👑', route: '/providers',   badge: null },
-    { label: 'Слоти',      icon: '🎰', route: '/slots',       badge: 'HOT' },
-    { label: 'Live Казино',icon: '🃏', route: '/live',        badge: null },
+  readonly navMain = [
+    { label: 'Головна',    icon: '🏠', route: '/lobby'     },
+    { label: 'Провайдери', icon: '👑', route: '/providers' },
+    { label: 'Слоти',      icon: '🎰', route: '/slots',    badge: 'HOT' },
+    { label: 'Live Казино',icon: '🃏', route: '/live'      },
   ];
-  readonly navItems2 = [
-    { label: 'Бонуси',     icon: '🎁', route: '/bonuses',     badge: null },
-    { label: 'Турніри',    icon: '🏆', route: '/tournaments', badge: null },
+  readonly navPromo = [
+    { label: 'Бонуси',   icon: '🎁', route: '/bonuses'     },
+    { label: 'Турніри',  icon: '🏆', route: '/tournaments' },
+    { label: 'Акції',    icon: '🔥', route: '/promotions'  },
   ];
-  readonly navItems3 = [
-    { label: 'FAQ',        icon: 'ℹ️',  route: '/faq',         badge: null },
-  ];
-  readonly soonItems = [
-    { label: 'Швидкі ігри', icon: '⚡' },
-    { label: 'Акції',       icon: '🔥' },
-    { label: 'Чат',         icon: '💬' },
+  readonly navOther = [
+    { label: 'FAQ',          icon: 'ℹ️',  route: '/faq'   },
+    { label: 'Швидкі ігри',  icon: '⚡', route: '/quick'  },
+    { label: 'Чат',          icon: '💬', route: '/chat'   },
   ];
 
   readonly depositOptions = [100, 500, 1000, 5000];
 
-  ngAfterViewInit(): void {
-    this.initStars();
-  }
+  ngAfterViewInit(): void { this.initStars(); }
 
   private initStars(): void {
     const canvas = this.starsCanvas.nativeElement;
@@ -77,17 +73,14 @@ export class AppComponent implements AfterViewInit {
       requestAnimationFrame(draw);
     };
 
-    resize();
-    draw();
+    resize(); draw();
     window.addEventListener('resize', resize);
   }
 
   openCashier(): void { this.isCashierOpen.set(true); }
   closeCashier(): void { this.isCashierOpen.set(false); }
 
-  selectDeposit(amount: number): void {
-    this.depositAmount = amount;
-  }
+  selectDeposit(amount: number): void { this.depositAmount = amount; }
 
   makeDeposit(): void {
     if (this.depositAmount <= 0) return;

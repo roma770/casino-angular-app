@@ -1,7 +1,6 @@
 <canvas #starsCanvas class="stars-canvas"></canvas>
 
 <div class="layout">
-  <!-- ── SIDEBAR ── -->
   <aside class="sidebar">
     <a class="logo" routerLink="/lobby">
       <span class="rocket">🚀</span>
@@ -9,40 +8,29 @@
     </a>
 
     <div class="sidebar-section-label">Головне</div>
-    @for (item of navItems; track item.route) {
+    @for (item of navMain; track item.route) {
       <a class="nav-link" [routerLink]="item.route" routerLinkActive="active">
         <span class="icon">{{ item.icon }}</span>
         {{ item.label }}
-        @if (item.badge) {
-          <span class="badge">{{ item.badge }}</span>
-        }
+        @if (item.badge) { <span class="badge">{{ item.badge }}</span> }
       </a>
     }
 
     <div class="sidebar-section-label">Акції</div>
-    @for (item of navItems2; track item.route) {
+    @for (item of navPromo; track item.route) {
       <a class="nav-link" [routerLink]="item.route" routerLinkActive="active">
-        <span class="icon">{{ item.icon }}</span>
-        {{ item.label }}
+        <span class="icon">{{ item.icon }}</span>{{ item.label }}
       </a>
     }
 
     <div class="sidebar-section-label">Інше</div>
-    @for (item of navItems3; track item.route) {
+    @for (item of navOther; track item.route) {
       <a class="nav-link" [routerLink]="item.route" routerLinkActive="active">
-        <span class="icon">{{ item.icon }}</span>
-        {{ item.label }}
+        <span class="icon">{{ item.icon }}</span>{{ item.label }}
       </a>
-    }
-    @for (item of soonItems; track item.label) {
-      <span class="nav-link soon">
-        <span class="icon">{{ item.icon }}</span>
-        {{ item.label }}
-      </span>
     }
   </aside>
 
-  <!-- ── MAIN ── -->
   <div class="main">
     <header class="top-header">
       <div class="search-bar">
@@ -50,7 +38,7 @@
         <input type="text" placeholder="Пошук ігор...">
       </div>
       <div class="header-actions">
-        <button class="btn-promo" routerLink="/bonuses">✨ COSMOFEST</button>
+        <button class="btn-promo" routerLink="/promotions">🔥 АКЦІЇ</button>
         <div class="balance-box">
           <span class="balance-amount">{{ userService.balance() }} ₴</span>
           <button class="btn-deposit" (click)="openCashier()">+</button>
@@ -64,38 +52,30 @@
   </div>
 </div>
 
-<!-- ── CASHIER MODAL ── -->
+<!-- CASHIER -->
 @if (isCashierOpen()) {
   <div class="modal-overlay" (click)="closeCashier()">
     <div class="modal-box" (click)="$event.stopPropagation()">
       <button class="modal-close" (click)="closeCashier()">×</button>
       <h2>💳 Поповнення рахунку</h2>
       <p>Оберіть суму або введіть власну</p>
-
       <div class="deposit-grid">
         @for (opt of depositOptions; track opt) {
-          <button
-            class="dep-btn"
-            [class.selected]="depositAmount === opt"
-            (click)="selectDeposit(opt)">
-            {{ opt }} ₴
-          </button>
+          <button class="dep-btn" [class.selected]="depositAmount === opt" (click)="selectDeposit(opt)">{{ opt }} ₴</button>
         }
       </div>
-
       <div class="custom-amount">
         <label>Або введіть свою суму:</label>
         <input type="number" [(ngModel)]="depositAmount" min="50">
       </div>
-
-      <button class="btn-submit" (click)="makeDeposit()">
-        ПОПОВНИТИ НА {{ depositAmount }} ₴
-      </button>
+      <button class="btn-submit" (click)="makeDeposit()">ПОПОВНИТИ НА {{ depositAmount }} ₴</button>
     </div>
   </div>
 }
 
-<!-- ── TOAST ── -->
-<div class="toast" [class.show]="toastService.toast().visible" [class.win]="toastService.toast().type === 'win'" [class.error]="toastService.toast().type === 'error'">
+<!-- TOAST -->
+<div class="toast" [class.show]="toastService.toast().visible"
+  [class.win]="toastService.toast().type === 'win'"
+  [class.error]="toastService.toast().type === 'error'">
   {{ toastService.toast().message }}
 </div>

@@ -1,62 +1,104 @@
-<div class="slot-page">
-  <h2>🎰 Удачливий Слот</h2>
-  <p class="sub">Три однакові символи — і джекпот твій!</p>
+<div class="slots-page">
 
-  <!-- STATS -->
-  <div class="slot-stats">
-    <div class="stat-box">
-      <div class="stat-label">Баланс</div>
-      <div class="stat-value neon">{{ balance() }} ₴</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-label">Ставка</div>
-      <div class="stat-value">{{ bet() }} ₴</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-label">Найбільший виграш</div>
-      <div class="stat-value gold">{{ maxWin() > 0 ? maxWin() + ' ₴' : '—' }}</div>
-    </div>
-  </div>
-
-  <!-- MACHINE -->
-  <div class="slot-machine">
-    <div class="machine-top">
-      <span class="machine-label">Слот-машина v1.0</span>
-      <span class="machine-name">COSMOROOM</span>
-    </div>
-
-    <div class="reels" [class.spinning]="isSpinning()">
-      @for (reel of reels(); track $index) {
-        <div class="reel" [class.win]="isWin()">{{ reel }}</div>
-      }
-    </div>
-
-    <div class="winline" [class.show]="isWin()"></div>
-
-    <div class="msg-box" [class.win-msg]="isWin()" [class.lose-msg]="!isWin() && message() !== 'Зроби ставку та крути!'">
-      {{ message() }}
-    </div>
-
-    <div class="bet-row">
-      <span class="bet-label">Ставка:</span>
-      <button class="bet-btn" (click)="changeBet(-5)" [disabled]="isSpinning()">−</button>
-      <div class="bet-value">{{ bet() }} ₴</div>
-      <button class="bet-btn" (click)="changeBet(5)" [disabled]="isSpinning()">+</button>
-    </div>
-
-    <button class="btn-spin" (click)="spin()" [disabled]="isSpinning()" [class.spinning]="isSpinning()">
-      {{ isSpinning() ? 'КРУТИТЬСЯ...' : 'КРУТИТИ' }}
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn" [class.active]="activeTab() === 'machine'" (click)="setTab('machine')">
+      🎰 Удачливий Слот
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'all'" (click)="setTab('all')">
+      🎮 Всі слоти ({{ allSlots.length }})
     </button>
   </div>
 
-  <!-- PAYTABLE -->
-  <div class="paytable">
-    <h4>Таблиця виплат</h4>
-    @for (sym of paytable; track sym.emoji) {
-      <div class="pay-row">
-        <span class="pay-symbols">{{ sym.emoji }}{{ sym.emoji }}{{ sym.emoji }}</span>
-        <span class="pay-mult">×{{ sym.multiplier }} від ставки</span>
+  <!-- SLOT MACHINE TAB -->
+  @if (activeTab() === 'machine') {
+    <div class="slot-page">
+      <h2>🎰 Удачливий Слот</h2>
+      <p class="sub">Три однакові символи — і джекпот твій!</p>
+
+      <div class="slot-stats">
+        <div class="stat-box">
+          <div class="stat-label">Баланс</div>
+          <div class="stat-value neon">{{ balance() }} ₴</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Ставка</div>
+          <div class="stat-value">{{ bet() }} ₴</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Найбільший виграш</div>
+          <div class="stat-value gold">{{ maxWin() > 0 ? maxWin() + ' ₴' : '—' }}</div>
+        </div>
       </div>
-    }
-  </div>
+
+      <div class="slot-machine">
+        <div class="machine-top">
+          <span class="machine-label">Слот-машина v1.0</span>
+          <span class="machine-name">COSMOROOM</span>
+        </div>
+
+        <div class="reels" [class.spinning]="isSpinning()">
+          @for (reel of reels(); track $index) {
+            <div class="reel" [class.win]="isWin()">{{ reel }}</div>
+          }
+        </div>
+
+        <div class="winline" [class.show]="isWin()"></div>
+
+        <div class="msg-box"
+          [class.win-msg]="isWin()"
+          [class.lose-msg]="!isWin() && message() !== 'Зроби ставку та крути!'">
+          {{ message() }}
+        </div>
+
+        <div class="bet-row">
+          <span class="bet-label">Ставка:</span>
+          <button class="bet-btn" (click)="changeBet(-5)" [disabled]="isSpinning()">−</button>
+          <div class="bet-value">{{ bet() }} ₴</div>
+          <button class="bet-btn" (click)="changeBet(5)" [disabled]="isSpinning()">+</button>
+        </div>
+
+        <button class="btn-spin" (click)="spin()" [disabled]="isSpinning()" [class.spinning]="isSpinning()">
+          {{ isSpinning() ? 'КРУТИТЬСЯ...' : 'КРУТИТИ' }}
+        </button>
+      </div>
+
+      <div class="paytable">
+        <h4>Таблиця виплат</h4>
+        @for (sym of paytable; track sym.emoji) {
+          <div class="pay-row">
+            <span class="pay-symbols">{{ sym.emoji }}{{ sym.emoji }}{{ sym.emoji }}</span>
+            <span class="pay-mult">×{{ sym.multiplier }} від ставки</span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- ALL SLOTS TAB -->
+  @if (activeTab() === 'all') {
+    <div class="all-slots">
+      <div class="sec-title">🎰 ВСІ СЛОТИ</div>
+      <div class="games-grid">
+        @for (game of allSlots; track game.id) {
+          <div class="game-card" (click)="openGame(game)">
+            <div class="card-bg" [style.background]="game.bg">
+              @if (game.badge) {
+                <span class="card-badge" [class]="badgeClass(game.badge)">{{ game.badge }}</span>
+              }
+              <span class="card-name">{{ game.name }}</span>
+              <div class="card-overlay">
+                <div class="overlay-info">
+                  <div>RTP {{ game.rtp }}%</div>
+                  <div>від {{ game.minBet }} ₴</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
 </div>
+<app-game-modal #gameModal></app-game-modal>

@@ -1,26 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GamesService, Game, Provider } from '../../services/games.service';
+import { GameModalComponent } from '../game-modal/game-modal.component';
 
 @Component({
   selector: 'app-providers',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, GameModalComponent],
   templateUrl: './providers.component.html',
   styleUrls: ['./providers.component.scss']
 })
 export class ProvidersComponent {
-  providers = [
-    { name: 'Pragmatic Play', logo: '🎯', count: '250+' },
-    { name: 'Evolution',       logo: '⚡', count: '180+' },
-    { name: 'NetEnt',          logo: '🎲', count: '120+' },
-    { name: 'Playtech',        logo: '🌟', count: '200+' },
-    { name: 'Microgaming',     logo: '🃏', count: '300+' },
-    { name: 'Yggdrasil',       logo: '🔮', count: '90+'  },
-    { name: "Play'n GO",       logo: '🎪', count: '140+' },
-    { name: 'Red Tiger',       logo: '🏆', count: '80+'  },
-    { name: 'Hacksaw',         logo: '🚀', count: '60+'  },
-    { name: 'Push Gaming',     logo: '💫', count: '45+'  },
-    { name: 'Relax Gaming',    logo: '🎰', count: '70+'  },
-    { name: 'Thunderkick',     logo: '🌊', count: '35+'  },
-  ];
+  @ViewChild('gameModal') gameModal!: GameModalComponent;
+  private gamesService = inject(GamesService);
+
+  providers = this.gamesService.providers;
+  selectedProvider = signal<Provider | null>(null);
+  providerGames = signal<Game[]>([]);
+
+  selectProvider(p: Provider): void {
+    this.selectedProvider.set(p);
+    this.providerGames.set(this.gamesService.getByProvider(p.id));
+  }
+
+  clearProvider(): void {
+    this.selectedProvider.set(null);
+    this.providerGames.set([]);
+  }
+
+  openGame(game: Game): void { this.gameModal.open(game); }
+
+  badgeClass(badge?: string): string {
+    return badge ? `badge-${badge.toLowerCase()}` : '';
+  }
+
+  gameCount(id: string): number {
+    return this.gamesService.getByProvider(id).length;
+  }
 }
